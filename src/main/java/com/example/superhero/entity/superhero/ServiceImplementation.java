@@ -1,10 +1,11 @@
 package com.example.superhero.entity.superhero;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import exception_handler.SuperheroSaveException;
 
 @Service
 public class ServiceImplementation implements ServiceInterface {
@@ -17,9 +18,12 @@ public class ServiceImplementation implements ServiceInterface {
         return repository.findAll();
     }
 
-
-    
-
-
-    
+    @Override
+    public Superhero save(Superhero superhero) {
+    try {
+        return repository.save(superhero);
+    } catch (Exception ex) {
+        throw new SuperheroSaveException("Could not save superhero", ex);
+    }
+    }
 }

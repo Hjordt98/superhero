@@ -9,9 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -40,15 +39,14 @@ public class RestCtrl {
 
     /*----------------------- POST (CREATE) ---------------------------- */
 
-    @PostMapping("/")
-    public ResponseEntity<String> postSuperhero(@Valid @RequestBody Superhero superhero) {
-        Superhero superhero_to_save = serviceInterface.save(superhero);
-
-        if (superhero_to_save == null) {
-            return new ResponseEntity<String>("Could not save superhero, please fill out every", HttpStatus.NOT_ACCEPTABLE);
+   @PostMapping("/")
+    public ResponseEntity<String> postSuperhero(@Valid @RequestBody Superhero superhero, BindingResult bindingResult) {
+        
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<String>("Could not save superhero, please check for missing fields and make sure all attributes are filled", HttpStatus.BAD_REQUEST);
         } else {
-            return new ResponseEntity<String>("Superhero succesfully saved", HttpStatus.CREATED);
+            serviceInterface.save(superhero);
+            return new ResponseEntity<String>("succesfully saved superhero", HttpStatus.ACCEPTED);
         }
-    
     }
 }

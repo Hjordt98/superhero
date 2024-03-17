@@ -32,4 +32,31 @@ The projects in this portfolio utilize a variety of technologies and frameworks,
 
 To build and run any of the projects, ensure you have Java 17 and Maven installed on your machine. Use the following Maven command to build the project:
 
+# Project Features
+
+This section provides an overview of the RESTful API endpoints available in the Superhero Portfolio Project. These endpoints allow for the creation, retrieval, update, and deletion of superhero data.
+
+## GET Endpoints
+
+- `GET /` - Retrieves a list of all superheroes. Returns an HTTP status of `200 OK` with the list of superheroes if available, or `204 No Content` if the list is empty.
+
+## POST Endpoints
+
+- `POST /` - Creates a new superhero. Requires a valid `Superhero` object in the request body. Returns an HTTP status of `202 Accepted` if the superhero is successfully saved, or `400 Bad Request` if there are validation errors.
+
+## DELETE Endpoints
+
+- `DELETE /{id}` - Deletes a superhero by its ID. Returns an HTTP status of `200 OK` with a success message if the superhero is successfully deleted, or `404 Not Found` if no superhero with the given ID exists.
+
+## PUT Endpoints
+
+- `PUT /{id}` - Updates a superhero by its ID. Requires a valid `Superhero` object in the request body. Returns an HTTP status of `202 Accepted` if the superhero is successfully updated, or `400 Bad Request` if there are validation errors. Also returns `404 Not Found` if no superhero with the given ID exists.
+
+## Additional Notes
+
+- All endpoints are protected by CORS (Cross-Origin Resource Sharing) policies, allowing them to be accessed from different origins.
+- The `Superhero` object in the request body for POST and PUT requests must be validated to ensure all required fields are filled.
+- The project utilizes Spring Boot for its RESTful API implementation, leveraging annotations such as `@RestController`, `@GetMapping`, `@PostMapping`, `@DeleteMapping`, and `@PutMapping` to define the API endpoints.
+
+
 

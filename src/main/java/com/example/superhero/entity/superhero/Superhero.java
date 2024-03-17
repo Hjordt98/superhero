@@ -1,12 +1,15 @@
 package com.example.superhero.entity.superhero;
 
 import lombok.Data;
+import lombok.Setter;
+
 import javax.validation.constraints.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Data
+@Setter
 @Table(name = "superhero")
 public class Superhero {
 

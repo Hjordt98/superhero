@@ -1,6 +1,7 @@
 package com.example.superhero.entity.superhero;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -24,8 +25,21 @@ public class ServiceImplementation implements ServiceInterface {
         try {
             return repository.save(superhero);
         } catch (Exception ex) {
-            // Log the exception or perform other actions as needed
             throw new RuntimeException("Could not save superhero", ex);
         }
     }
+
+    @Override
+    public void deleteById(int id) {
+       repository.deleteById(id);
+    
+    }
+
+    @Override
+    public Optional<Superhero> findById(int id){
+        return repository.findById(id);
+    }
+
+   
+    
 }

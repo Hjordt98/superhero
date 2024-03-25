@@ -35,6 +35,18 @@ public class RestCtrl {
             return new ResponseEntity<>(superheroes, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Superhero>> findById(@PathVariable int id) {
+        List<Superhero> superheroes = serviceInterface.findById();
+        if (superheroes.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } else {
+            return new ResponseEntity<>(superheroes, HttpStatus.OK);
+        }
+    }
+
+
        
 
     /*----------------------- POST (CREATE) ---------------------------- */
@@ -86,7 +98,6 @@ public class RestCtrl {
         }
     }
 
-       
 
 }
 

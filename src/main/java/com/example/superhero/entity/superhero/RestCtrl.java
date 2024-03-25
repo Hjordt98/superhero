@@ -97,7 +97,6 @@ public class RestCtrl {
             return new ResponseEntity<String>("succesfully updated superhero", HttpStatus.ACCEPTED);
         }
     }
-
 }
 
     

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 
+
 @RestController
 @CrossOrigin
 public class RestCtrl {
@@ -97,4 +98,30 @@ public class RestCtrl {
             return new ResponseEntity<String>("succesfully updated superhero", HttpStatus.ACCEPTED);
         }
     }
+
+    /*----------------------- UPDATE (UPDATE) ---------------------------- */
+
+
+  @PostMapping("/{id}")
+public ResponseEntity<String> postSuperhero(@PathVariable int id,@RequestBody Superhero superhero, BindingResult bindingResult) {
+    Optional<Superhero> superheroToUpdate = serviceInterface.findById(id);
+
+    if (!superheroToUpdate.isPresent()) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No superhero with entered ID exists");
+    } else if (bindingResult.hasErrors()) {
+        return new ResponseEntity<>("Could not save superhero, please check for missing fields and make sure all attributes are filled", HttpStatus.BAD_REQUEST);
+    } else {
+        // Assuming the Superhero class has setters for all fields
+        superheroToUpdate.get().setFirst_name(superhero.getFirst_name());
+        superheroToUpdate.get().setLast_name(superhero.getLast_name());
+        superheroToUpdate.get().setHero_name(superhero.getHero_name());
+        superheroToUpdate.get().setPowers(superhero.getPowers());
+        superheroToUpdate.get().setRelease_date(superhero.getRelease_date());
+
+        serviceInterface.save(superheroToUpdate.get());
+        return new ResponseEntity<>("Successfully updated superhero", HttpStatus.OK);
+    }
+}
+
+    
 }

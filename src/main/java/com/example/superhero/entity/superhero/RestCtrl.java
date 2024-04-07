@@ -27,22 +27,22 @@ public class RestCtrl {
     /*----------------------- GET (READ) ---------------------------- */
 
     @GetMapping("/")
-    public ResponseEntity<List<Superhero>> findAllSuperheroes() {
+    public ResponseEntity<?> findAllSuperheroes() {
         List<Superhero> superheroes = serviceInterface.findAll();
         if (superheroes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<String>("No superheros found in this database",HttpStatus.NO_CONTENT);
         } else {
             return new ResponseEntity<>(superheroes, HttpStatus.OK);
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Optional<Superhero>> findById(@PathVariable int id) {
-        List<Superhero> superheroes = serviceInterface.findById();
-        if (superheroes.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    public ResponseEntity<?> findById(@PathVariable int id) {
+        Optional<Superhero> superheroe = serviceInterface.findById(id);
+        if (superheroe.isEmpty()) {
+            return new ResponseEntity<String>("No superhero with entered ID exists", HttpStatus.NOT_FOUND);
         } else {
-            return new ResponseEntity<>(superheroes, HttpStatus.OK);
+            return new ResponseEntity<>(superheroe, HttpStatus.OK);
         }
     }
 
